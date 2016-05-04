@@ -66,3 +66,13 @@ Terminal=false
 ```
 
 This should allow you to start Vivado from the applications menu, without having to go through a terminal.
+
+Next, you need to add Zybo board files to Vivado's boards directory. You can download the board files from [Digilent's github repo](https://github.com/Digilent/vivado-boards/). Click the download zip button to download a zip of the repo. Unzip the file and move it to ```/opt/Xilinx/Vivado/2016.1/data/boards/board_files```.
+
+```bash
+cd ~/Downloads
+unzip vivado-boards-master.zip
+sudo cp vivado-boards-master/new/board_files/zybo /opt/Xilinx/Vivado/2016.1/data/boards/board_files
+```
+
+You can delete the vivado-boards-master folder and zip now.
