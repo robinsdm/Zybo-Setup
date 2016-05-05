@@ -62,7 +62,7 @@ Version=1.0
 Type=Application
 Name=Vivado
 Icon=/opt/Xilinx/Vivado/2014.4/doc/images/vivado_logo.ico
-Exec=/opt/Xilinx/Vivado/2014.4/bin/vivado
+Exec=/opt/Xilinx/Vivado/2014.4/bin/vivado -nolog -nojournal
 Categories=Development;IDE;
 Terminal=false
 ```
