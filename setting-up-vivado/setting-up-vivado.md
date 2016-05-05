@@ -77,4 +77,34 @@ unzip vivado-boards-master.zip
 sudo cp -r vivado-boards-master/old/board_files/zybo/ /opt/Xilinx/Vivado/2014.4/data/boards/board_parts/zynq/
 ```
 
-You can delete the vivado-boards-master folder and zip now. If you restart Vivado, Zybo should show up as an option under boards in the project creation menu.
+You can delete the vivado-boards-master folder and zip now. If you restart Vivado, Zybo should show up as an option under boards in the project creation menu. Now you should be able to use Vivado and Xilinx's SDK. 
+
+Lastly, you need to add yourself to the list of users allowed to access the serial ports. Without this you will not be able to access the USB UART in Xilinx's SDK.
+
+```bash
+sudo addgroup <your-username> dialout
+```
+
+Now, logout and log back in for the changes to take affect. Also, on several Linux distributions (specifically Ubuntu) the serial ports drivers do not work in Xilinx's SDK. To fix this we need to compile a new set of drivers.
+
+```bash
+cd ~
+wget http://rxtx.qbang.org/pub/rxtx/rxtx-2.2pre2.zip
+unzip txtx-2.2pre2.zip
+cd rxtx-2.2pre2
+./configure --disable-lockfiles
+make
+```
+
+The build will fail, but it's ok.
+
+```bash
+cd /opt/Xilinx/SDK/2014.4/eclipse/lnx64.o/plugins/gnu.io.rxtx.linux.x86_64_2.1.7.3_v20071015/os/linux/x86_64
+sudo mv librxtxParallel.so librxtxParallel.old
+sudo mv librxtxSerial.so librxtxSerial.old
+sudo mv ~/rxtx-2.2pre2/x86_64-unknown-linux-gnu/.libs/librxtxParallel.so .
+sudo mv ~/rxtx-2.2pre2/x86_64-unknown-linux-gnu/.libs/librxtxSerial.so .
+sudo mv ~/rxtx-2.2pre2/x86_64-unknown-linux-gnu/.libs/librxtxSerial-2.2pre1.so .
+```
+
+Note, when configuring XSDK serial ports the port is generally ``/dev/ttyUSBX`` where X is a number. If you start with the Zybo's USB disconnected and type ``ls /dev/ttyUSB*`` into a terminal and then connect the USB and power on the Zybo. Run ``ls /dev/ttyUSB8`` command again. The new number is the Zybo's port.
