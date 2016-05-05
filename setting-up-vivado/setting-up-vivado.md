@@ -108,3 +108,8 @@ sudo mv ~/rxtx-2.2pre2/x86_64-unknown-linux-gnu/.libs/librxtxSerial-2.2pre1.so .
 ```
 
 Note, when configuring XSDK serial ports the port is generally ``/dev/ttyUSBX`` where X is a number. If you start with the Zybo's USB disconnected and type ``ls /dev/ttyUSB*`` into a terminal and then connect the USB and power on the Zybo. Run ``ls /dev/ttyUSB8`` command again. The new number is the Zybo's port.
+
+If you plan on creating IPs with Vivado in Linux it will not work unless you set the vendor name.To set the vendor name create a project and look in the flow navigator for the Project Settings menu. Once the menu pops up, click the IP button in the button left. Then navigate to the packager tab, fill in the vendor text field, and click ok.
+
+![Vendor Settings](images/installer_3.png)
+
